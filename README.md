@@ -1,57 +1,24 @@
-# LSTM
+# LSTM for assistance level prediction
 train LSTM with stroke therapist and patient data
 
 We collected some sample data in file trial2.csv to train the network.
 
 Feel free to change the hyperparameters in config_1.json. Recommand to directly use config_2.json.
 
-Uncomment the lines in run.py to save your predicted results.
-
-Use this jupyter notebook to get a 3D graph of predicted trajectory. You can use the results I got from file: saved test&predict results
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zeyangz2/LSTM/blob/master/3D%20graph%20LSTM%20results.ipynb)
-
-Since LSTM is good for point by point prediction but not good for long sequence prediction, we use another model called Informer to do long sequence prediction.
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zeyangz2/LSTM/blob/master/Informer_for_stroke_research.ipynb)
-
-To use Informer, you must need to add a date column and put the feaeture that you want to predict to the rightmost column in your data file(.scv file). Right now, Informer gives proper predicted results but still not good enough.
-
-Make sure to edit the sample data in trial2.csv before using Informer to train the network.
+We only use point by point prediction method here.
 
 Architecture of LSTM model (the number of inputs given to the model could change depending on how many inputs we want to use to train the model):
 
-![model](https://github.com/zeyangz2/LSTM/assets/73300066/801da6f7-11a1-4b94-bb89-f78f34086115)
+![a4e537b9dac822bb94f7bb61c87a0f4](https://github.com/zeyangz2/LSTM_predict_assistant_level/assets/73300066/0aee0f08-42df-455d-ae90-fa4da40ea051)
 
-results:
+## **results:**
 
-red line for ground truth and green line for our prediction
+![results_2_try](https://github.com/zeyangz2/LSTM_predict_assistant_level/assets/73300066/e68fcc99-14a8-4b84-966e-70dae3309f50)
 
-![3D result](https://github.com/zeyangz2/LSTM/assets/73300066/567839c0-16eb-4870-8e89-90343fa5423b)
+**model loss:**
 
-## **z_axis:**
+![Model Loss](https://github.com/zeyangz2/LSTM_predict_assistant_level/assets/73300066/0f4a9ca0-f09f-4b07-bbac-a82dd0b5f0c6)
 
-![result_z](https://github.com/zeyangz2/LSTM/assets/73300066/e4a386d9-3d7d-46bc-b2ee-57cbad2cc750)
-
-**z_axis model loss:**
-
-![Model Loss z](https://github.com/zeyangz2/LSTM/assets/73300066/cf8b165b-11d7-4b07-bf97-91d8ae930024)
-
-
-## **y_axis:**
-
-![results_y](https://github.com/zeyangz2/LSTM/assets/73300066/8902b71a-0f5a-4329-9964-554f8a639a62)
-
-**y_axis model loss:**
-
-![Model Loss y](https://github.com/zeyangz2/LSTM/assets/73300066/00481fb4-db25-4b21-a9e7-a17d4dc4da6a)
-
-
-## **x_axis:**
-
-![results_x](https://github.com/zeyangz2/LSTM/assets/73300066/7b59c058-e4d3-4e12-a590-9ef38c316835)
-
-**x_axis model loss:**
-
-![Model Loss x](https://github.com/zeyangz2/LSTM/assets/73300066/ebb09931-97cb-4294-9342-2363734c9429)
 
 more updates later...
 
