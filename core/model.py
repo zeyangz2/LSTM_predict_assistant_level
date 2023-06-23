@@ -5,7 +5,7 @@ import datetime as dt
 from numpy import newaxis
 from core.utils import Timer
 from keras.layers import Dense, Activation, Dropout, LSTM
-from keras.models import Sequential, load_model
+from keras.models import Sequential, load_model, save_model
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 import matplotlib.pyplot as plt
 
@@ -64,10 +64,9 @@ class Model():
 			y,
 			epochs=epochs,
 			batch_size=batch_size,
-			callbacks=callbacks,
-			validation_split=0.1
+			validation_split=0.2
 		)
-		# self.model.save(save_fname)
+		self.model.save(save_fname)
 
 		print('[Model] Training Completed. Model saved as %s' % save_fname)
 		timer.stop()
@@ -80,6 +79,11 @@ class Model():
 		plt.xlabel('Epoch')
 		plt.legend(['Train', 'Validation'], loc='upper right')
 		plt.savefig('Model Loss.png')
+
+		# uncomment if you want to save model to use in a server
+		# export_path = 'C:\\Users\\flash\\savedmodel\\LSTM_z\\1'
+		# save_model(self.model, export_path, overwrite=True, include_optimizer=True, save_format=None, signatures=None, options=None)
+		# print('saved model for deploy')
 
 
 	def train_generator(self, data_gen, epochs, batch_size, steps_per_epoch, save_dir):

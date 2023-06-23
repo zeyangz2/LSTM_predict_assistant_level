@@ -2,7 +2,7 @@
 	"data": {
 		"filename": "trial2.csv",
 		"columns": [
-			"Therapist position y",
+			"Therapist position z",
 			"Patient joint angle 0",
 			"Patient joint angle 1",
 			"Patient joint angle 2",
@@ -12,12 +12,12 @@
 			" Recovery Factor",
 			" Assistance Level"
 		],
-		"sequence_length": 20,
+		"sequence_length": 2,
 		"train_test_split": 0.85,
 		"normalise": false
 	},
 	"training": {
-		"epochs": 100,
+		"epochs": 80,
 		"batch_size": 32
 	},
 	"model": {
@@ -27,28 +27,29 @@
 		"layers": [
 			{
 				"type": "lstm",
-				"neurons": 100,
-				"input_timesteps": 19,
+				"neurons": 256,
+				"input_timesteps": 1,
 				"input_dim": 9,
 				"return_seq": true
 			},
 			{
 				"type": "dropout",
-				"rate": 0.05
+				"rate": 0.2
 			},
 			{
 				"type": "lstm",
-				"neurons": 100,
+				"neurons": 256,
 				"return_seq": true
 			},
+
 			{
 				"type": "lstm",
-				"neurons": 100,
+				"neurons": 256,
 				"return_seq": false
 			},
 			{
 				"type": "dropout",
-				"rate": 0.05
+				"rate": 0.2
 			},
 			{
 				"type": "dense",
