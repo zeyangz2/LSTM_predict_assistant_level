@@ -75,7 +75,7 @@ def main():
     )
 
     # test
-    x_test, y_test = data.get_test_data(
+    x_test, y_test, scaler = data.get_test_data(
         seq_len=configs['data']['sequence_length'],
         normalise=configs['data']['normalise']
     )
@@ -89,6 +89,13 @@ def main():
     # np.save('x.npy', predictions_pointbypoint)
     # print(y_test)
     # np.save('z_test.npy', y_test)
+
+    # For denormalizing the data
+    predictions_pointbypoint = scaler.inverse_transform(predictions_pointbypoint.reshape(1, -1)).ravel()
+
+    y_test = scaler.inverse_transform(y_test)
+
+    print(predictions_pointbypoint)
 
     plot_results_multiple(predictions_multiseq, y_test, configs['data']['sequence_length'])
     plot_results(predictions_pointbypoint, y_test)

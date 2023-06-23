@@ -1,17 +1,25 @@
 import math
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 class DataLoader():
 
     def __init__(self, filename, split, cols):
         dataframe = pd.read_csv(filename)
+
         i_split = int(len(dataframe) * split)
         self.data_train = dataframe.get(cols).values[:i_split]
         self.data_test  = dataframe.get(cols).values[i_split:]
         self.len_train  = len(self.data_train)
         self.len_test   = len(self.data_test)
         self.len_train_windows = None
+
+        # Apply standardization separately to avoid data leakage
+        self.label_scaler = StandardScaler()
+        # Transform only the column of interest
+        self.data_train[:, 0] = self.label_scaler.fit_transform(self.data_train[:, 0].reshape(-1, 1)).ravel()
+        self.data_test[:, 0] = self.label_scaler.transform(self.data_test[:, 0].reshape(-1, 1)).ravel()
 
     def get_test_data(self, seq_len, normalise):
 
@@ -24,7 +32,7 @@ class DataLoader():
 
         x = data_windows[:, :-1]
         y = data_windows[:, -1, [0]]
-        return x,y
+        return x,y, self.label_scaler
 
     def get_train_data(self, seq_len, normalise):
 
@@ -66,6 +74,9 @@ class DataLoader():
         for window in window_data:
             normalised_window = []
             for col_i in range(window.shape[1]):
+                if col_i == 0:
+                    normalised_window.append(window[:, col_i])
+                    continue
                 normalised_col = [((float(p) / float(window[0, col_i])) - 1) for p in window[:, col_i]]
                 normalised_window.append(normalised_col)
             normalised_window = np.array(normalised_window).T 
