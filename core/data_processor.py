@@ -77,7 +77,20 @@ class DataLoader():
                 if col_i == 0:
                     normalised_window.append(window[:, col_i])
                     continue
-                normalised_col = [((float(p) / float(window[0, col_i])) - 1) for p in window[:, col_i]]
+                pos = 0
+                rows = window.shape[0]
+                den = 0
+
+                for i in range(rows):
+                    if float(window[pos, col_i]) != 0:
+                        den = float(window[pos, col_i])
+                        break
+                    pos += 1
+                if den == 0:
+                    normalised_window.append(window[:, col_i])
+                    continue
+                # print(den)
+                normalised_col = [((float(p) / float(window[pos, col_i])) - 1) for p in window[:, col_i]]
                 normalised_window.append(normalised_col)
             normalised_window = np.array(normalised_window).T 
             normalised_data.append(normalised_window)
