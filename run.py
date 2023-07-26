@@ -81,8 +81,8 @@ def main():
     )
 
     # show test results
-    predictions_multiseq = model.predict_sequences_multiple(x_test, configs['data']['sequence_length'],
-                                                            configs['data']['sequence_length'])
+    # predictions_multiseq = model.predict_sequences_multiple(x_test, configs['data']['sequence_length'],
+    #                                                         configs['data']['sequence_length'])
     predictions_pointbypoint = model.predict_point_by_point(x_test, debug=True)
 
     # print(predictions_pointbypoint)
@@ -95,9 +95,13 @@ def main():
 
     y_test = scaler.inverse_transform(y_test)
 
-    print(predictions_pointbypoint)
+    # Print the mean and standard deviation used by the scaler
+    print("Mean:", scaler.mean_)
+    print("Standard Deviation:", scaler.scale_)
 
-    plot_results_multiple(predictions_multiseq, y_test, configs['data']['sequence_length'])
+    # print(predictions_pointbypoint)
+
+    # plot_results_multiple(predictions_multiseq, y_test, configs['data']['sequence_length'])
     plot_results(predictions_pointbypoint, y_test)
 
     print("point by point prediction test loss: ")

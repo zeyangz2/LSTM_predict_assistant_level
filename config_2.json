@@ -1,6 +1,6 @@
 {
 	"data": {
-		"filename": "srikar and zeyang_1.csv",
+		"filename": "srikar and zeyang_clockwise 2.csv",
 		"columns": [
 			" Assistance Level",
 			"Therapist position x",
@@ -8,12 +8,11 @@
 			"Therapist position z",
 			"Patient position x",
 			"Patient position y",
-			"Patient position z",
-			" Recovery Factor"
+			"Patient position z"
 		],
-		"sequence_length": 5,
+		"sequence_length": 2,
 		"train_test_split": 0.85,
-		"normalise": true
+		"normalise": false
 	},
 	"training": {
 		"epochs": 150,
@@ -26,9 +25,9 @@
 		"layers": [
 			{
 				"type": "lstm",
-				"neurons": 100,
-				"input_timesteps": 4,
-				"input_dim": 8,
+				"neurons": 200,
+				"input_timesteps": 1,
+				"input_dim": 7,
 				"return_seq": true
 			},
 			{
